@@ -1,0 +1,72 @@
+{
+  "name": "Project",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Project title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief project description"
+    },
+    "detailed_description": {
+      "type": "string",
+      "description": "Detailed project description with features"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "in_development",
+        "completed",
+        "live"
+      ],
+      "description": "Current project status"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Technology/skill tags"
+    },
+    "live_url": {
+      "type": "string",
+      "description": "Live project URL if available"
+    },
+    "github_url": {
+      "type": "string",
+      "description": "GitHub repository URL if available"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Project screenshot or mockup"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to feature on homepage"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "status"
+  ],
+  "rls": {
+    "read": {},
+    "write": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

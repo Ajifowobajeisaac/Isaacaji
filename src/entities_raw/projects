@@ -1,0 +1,64 @@
+{
+  "name": "BlogPost",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Blog post title"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL slug for the post"
+    },
+    "excerpt": {
+      "type": "string",
+      "description": "Brief post summary"
+    },
+    "content": {
+      "type": "string",
+      "description": "Full blog post content"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Post category tags"
+    },
+    "reading_time": {
+      "type": "number",
+      "description": "Estimated reading time in minutes"
+    },
+    "published": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the post is published"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to feature the post"
+    }
+  },
+  "required": [
+    "title",
+    "slug",
+    "excerpt",
+    "content"
+  ],
+  "rls": {
+    "read": {},
+    "write": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}
